@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-logo">Pic2QR</a>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-modal="features-modal">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-modal="about-modal">About</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" data-modal="contact-modal">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Modals -->
+    <div id="features-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Features</h2>
+            <p>You can create a one-of-a-kind QR code by seamlessly blending your desired image with the QR code itself. Instead of simply placing an image on top of the code, this generator artistically integrates the image into the QR pattern, resulting in a unique and creative design.</p>
+        </div>
+    </div>
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>About</h2>
+            <p>This QR code generator utilizes cutting-edge AI technology to produce personalized QR codes based on the image and data you provide. Our goal is to help anyone easily create a special, customized QR code without the need for complex settings.</p>
+        </div>
+    </div>
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Contact</h2>
+            <p>Contact: <a href="mailto:tk012115@gmail.com">tk012115@gmail.com</a></p>
+        </div>
+    </div>
+    <div class="page-container">
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-line"></div>
+                <div class="progress-line-active" id="progress-line-active"></div>
+                <div class="progress-step active" data-step="1"><span class="step-label"> Upload Image</span></div>
+                <div class="progress-step" data-step="2"><span class="step-label">Enter URL</span></div>
+                <div class="progress-step" data-step="3"><span class="step-label">Select Option</span></div>
+                <div class="progress-step" data-step="4"><span class="step-label">Complete </span></div>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="input-section">
+                <h1>Picture to QR</h1>
+                <form id="qr-form">
+                    <label for="image">1. image file:</label>
+                    <input type="file" id="image" name="image" accept="image/*" required>
+                    
+                    <label for="data">2. URL or Text:</label>
+                    <input type="text" id="data" name="data" placeholder="Content for QR Code" required>
+                    
+                    <label for="color">3. color option:</label>
+                    <select id="color" name="color" style="width: 500px;">
+                        <option value="black">black</option>
+                        <option value="color">color</option>
+                    </select>
+
+                    <label for="version">4. QR code size (1-13):</label>
+                    <input type="number" id="version" name="version" min="1" max="13" value="6" required>
+                    
+                    <button type="submit">QR generate</button>
+                </form>
+            </div>
+            <div class="output-section">
+                <h2 id="result-title">result</h2>
+                <div class="loader" id="loader"></div>
+                <div id="qr-result">
+                    <img id="qr-image" src="" alt="Generated QR Code">
+                    <a id="download-link" href="" download>
+                        <button id="download-btn">download</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="example-section">
+        <h2>QR size Example</h2>
+        <div class="example-category">
+            <h3>Size 1-6</h3>
+            <div class="example-images">
+                <img src="/examples/ku1.jpg" alt="Example 1">
+                <img src="/examples/ku2.gif" alt="Example 2">
+                <img src="/examples/bape1.png" alt="Example 3">
+                <img src="/examples/bape2.gif" alt="Example 4">
+            </div>
+        </div>
+        <div class="example-category">
+            <h3>Size 7-15</h3>
+            <div class="example-images">
+                <img src="/examples/kaws1.png" alt="Example 5">
+                <img src="/examples/kaws2.gif" alt="Example 6">
+                <img src="/examples/ru1.png" alt="Example 7">
+                <img src="/examples/ru2.gif" alt="Example 8">
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
