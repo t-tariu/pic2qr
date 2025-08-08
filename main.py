@@ -39,19 +39,30 @@ async def generate_qr(
         unique_name = f"{uuid.uuid4()}.gif"
         output_path = os.path.join(OUTPUT_DIR, unique_name)
 
-        # 3. amazing-qr 실행
-        # amzqr.run()은 (성공여부, 최종 파일명) 튜플을 반환합니다.
-        version, level, qr_name = amzqr.run(
-            words=data,
-            version=version,  # QR 코드 버전 (복잡도)
-            level='H',   # 오류 복원 수준 (L, M, Q, H)
-            picture=temp_image_path,
-            colorized=is_color,
-            contrast=1.0,
-            brightness=1.0,
-            save_name=unique_name, # 저장될 파일명 지정
-            save_dir=OUTPUT_DIR
-        )
+        # Vercel 환경의 읽기 전용 파일 시스템 오류를 해결하기 위해 HOME을 /tmp로 설정
+        original_home = os.environ.get("HOME")
+        os.environ["HOME"] = "/tmp"
+
+        try:
+            # 3. amazing-qr 실행
+            # amzqr.run()은 (성공여부, 최종 파일명) 튜플을 반환합니다.
+            version, level, qr_name = amzqr.run(
+                words=data,
+                version=version,  # QR 코드 버전 (복잡도)
+                level='H',   # 오류 복원 수준 (L, M, Q, H)
+                picture=temp_image_path,
+                colorized=is_color,
+                contrast=1.0,
+                brightness=1.0,
+                save_name=unique_name, # 저장될 파일명 지정
+                save_dir=OUTPUT_DIR
+            )
+        finally:
+            # HOME 환경 변수를 원래대로 복원
+            if original_home is None:
+                del os.environ["HOME"]
+            else:
+                os.environ["HOME"] = original_home
 
         # 4. 임시 이미지 파일 삭제
         os.remove(temp_image_path)
