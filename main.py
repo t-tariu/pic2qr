@@ -14,6 +14,8 @@ TEMP_DIR = "/tmp/temp_images"
 OUTPUT_DIR = "/tmp/generated_qrs"
 if not os.path.exists(TEMP_DIR):
     os.makedirs(TEMP_DIR)
+if not os.path.exists(OUTPUT_DIR):
+    os.makedirs(OUTPUT_DIR)
 
 @app.post("/generate-qr")
 async def generate_qr(
